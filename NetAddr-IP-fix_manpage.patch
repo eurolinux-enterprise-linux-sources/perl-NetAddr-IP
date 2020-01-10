@@ -1,0 +1,12 @@
+diff -up NetAddr-IP-4.027/IP.pm.doc NetAddr-IP-4.027/IP.pm
+--- NetAddr-IP-4.027/IP.pm.doc	2011-06-07 10:07:58.000000000 +0200
++++ NetAddr-IP-4.027/IP.pm	2011-06-07 10:10:34.969967385 +0200
+@@ -261,7 +261,7 @@ Add a 32 bit signed constant to the addr
+ This operation changes the address part to point so many hosts above the
+ current objects start address. For instance, this code:
+ 
+-    print NetAddr::IP::Lite->new('127.0.0.1') + 5;
++    print NetAddr::IP::Lite->new('127.0.0.1/8') + 5;
+ 
+ will output 127.0.0.6/8. The address will wrap around at the broadcast
+ back to the network address. This code:

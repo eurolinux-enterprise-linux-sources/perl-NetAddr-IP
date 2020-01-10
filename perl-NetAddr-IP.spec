@@ -1,6 +1,6 @@
 Name:           perl-NetAddr-IP
 Version:        4.027
-Release:        3%{?dist}
+Release:        7%{?dist}
 Summary:        Manages IPv4 and IPv6 addresses and subnets
 # Upstream explicitly gave permission for us to distribute under Artistic 2.0
 # Will be reflected in next release.
@@ -8,6 +8,7 @@ License:        Artistic 2.0
 Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/NetAddr-IP/
 Source0:        http://search.cpan.org/CPAN/authors/id/M/MI/MIKER/NetAddr-IP-%{version}.tar.gz
+Patch0:         NetAddr-IP-fix_manpage.patch
 Source1:        License_of_perl-NetAddr-IP.txt
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  perl(ExtUtils::MakeMaker), perl(Test::More)
@@ -21,6 +22,8 @@ Math::BigInt as in previous versions.
 
 %prep
 %setup -q -n NetAddr-IP-%{version}
+%patch0 -p1
+
 cp %{SOURCE1} .
 cat << \EOF > %{name}-prov
 #!/bin/sh
@@ -41,7 +44,7 @@ mv -f README.new README
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
+%{__perl} Makefile.PL INSTALLDIRS=perl OPTIMIZE="%{optflags}"
 make %{?_smp_mflags}
 
 %install
@@ -64,11 +67,19 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %doc Changes README TODO docs/rfc1884.txt License_of_perl-NetAddr-IP.txt
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/NetAddr*
+%{perl_archlib}/auto/*
+%{perl_archlib}/NetAddr*
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jun 10 2011 Marcela Mašláňová <mmaslano@redhat.com> - 4.027-7
+- fix paths, our Documentation stated vendor is empty for 3rd party
+- Related: rhbz#692857
+
+* Fri Jun  3 2011 Marcela Mašláňová <mmaslano@redhat.com> - 4.027-6
+- Addition of a constant does not work as documented - fix documentation
+- Resolves: rhbz#692857
+
 * Wed Feb 17 2010 Marcela Mašláňová <mmaslano@redhat.com> - 4.027-3
 - make rpmlint happy
 - Related: rhbz#543948
