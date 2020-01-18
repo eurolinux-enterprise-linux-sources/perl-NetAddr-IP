@@ -1,6 +1,6 @@
 Name:           perl-NetAddr-IP
 Version:        4.069
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Manages IPv4 and IPv6 addresses and subnets
 # Lite/Util/Util.xs is GPLv2+
 # Other files are (GPLv2+ or Artistic clarified)
@@ -56,6 +56,12 @@ make test
 %{_mandir}/man3/NetAddr::IP::UtilPP.3pm*
 
 %changelog
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 4.069-3
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 4.069-2
+- Mass rebuild 2013-12-27
+
 * Sun May 26 2013 Paul Howarth <paul@city-fan.org> - 4.069-1
 - Update to 4.069
   - Add proper pod encoding in Lite.pm
